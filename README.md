@@ -12,7 +12,7 @@ Just put the file ```nios.vim``` in your ```~/.vim/syntax``` folder.
 ### Vundle
 
 add Plugin 'hfkang/vim-nios' to your .vimrc file and install
-````
+
 
 Highlights
 ----------
