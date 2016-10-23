@@ -1,57 +1,33 @@
-vim-mipssyntax
+vim-nios
 ==============
-MIPS Syntax file.
+NIOSII Syntax file.
 
-This is a fork of [mips.vim](http://www.vim.org/scripts/script.php?script_id=2045 "mips.vim: Your standard MIPS syntax highlighting") by [Alex Brick](http://www.vim.org/account/profile.php?user_id=13254 "User Profile: Alex Brick"). In order to improve Alex Brick's syntax file, I processed [GNU Binutils](https://www.gnu.org/software/binutils/ "GNU Binutils")'s ```opcodes/mips.c``` and ```include/opcode/mips.h``` files using ```grep```, ```cut```, ```sort``` and ```comm```.
-
-Revisions supported
--------------------
-This syntax file should support the following revisions of the MIPS instruction set:
-- MIPS I
-- MIPS II
-- MIPS III
-- MIPS IV
-- MIPS V
-- MIPS 32
-- MIPS 64
-
-It also supports a few pseudo instructions such as ```subi``` or ```subiu``` and additionnal directives such as [MARS](http://courses.missouristate.edu/KenVollmar/MARS/index.htm "MARS MIPS Siulator")'s ```.macro```, ```.eqv``` and ```.include``` directives.
+Forked from https://github.com/Harenome/vim-mipssyntax
 
 Installation
 ------------
 ### Regular installation
-Just put the file ```mips.vim``` in your ```~/.vim/syntax``` folder.
+Just put the file ```nios.vim``` in your ```~/.vim/syntax``` folder.
 
-### Pathogen
-If you're using pathogen, you can also:
-````
-cd ~/.vim/bundle
-git clone git://github.com/HarnoRanaivo/vim-mipssyntax.git
-````
-Unless you are managing your vim files using git, in which case you will need to use gitmodules. Go to the root of your repository and type:
-````
-git submodule add git://github.com/HarnoRanaivo/vim-mipssyntax.git [<path to .vim/bundle>/vim-mipssyntax]
-````
-Remember you will need to init and update your submodules on your other computers:
-````
-git submodule init
-git submodule update
+### Vundle
+
+add Plugin 'hfkang/vim-nios' to your .vimrc file and install
 ````
 
 Highlights
 ----------
 If you want to be able to tell the difference between actual instructions, aliases, macros and pseudo instructions, change the lines ```466``` to ```476``` to something like this, for instance:
 ````
-hi def link mipsComment             Comment
-hi def link mipsNumber              Number
-hi def link mipsString              String
-hi def link mipsLabel               Label
-hi def link mipsRegister            Identifier
-hi def link mipsDirective           Type
-hi def link mipsInstruction         Statement
-hi def link mipsAlias               PreProc
-hi def link mipsMacro               PreProc
-hi def link mipsPseudoInstruction   Special
-hi def link mipsPseudoDirective     Special
+hi def link niosComment             Comment
+hi def link niosNumber              Number
+hi def link niosString              String
+hi def link niosLabel               Label
+hi def link niosRegister            Identifier
+hi def link niosDirective           Type
+hi def link niosInstruction         Statement
+hi def link niosAlias               PreProc
+hi def link niosMacro               PreProc
+hi def link niosPseudoInstruction   Special
+hi def link niosPseudoDirective     Special
 ````
 Of course, this requires your colorscheme to set different colours for these highlights.
