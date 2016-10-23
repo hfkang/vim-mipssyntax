@@ -1,8 +1,8 @@
 " Vim syntax file
-" Language: MIPS
+" Language: Nios2
 " Original Author: Alex Brick <alex@alexrbrick.com>
-" Maintainer: Harenome Ranaivoarivony Razanajato <harno.ranaivo@gmail.com>
-" Last Change: 2013 Apr 22
+" Maintainer: Francis Kang
+" Last Change: 2016 Oct 23
 " Based on Alex Brick's syntax file:
 " http://www.vim.org/scripts/script.php?script_id=2045
 
@@ -18,428 +18,428 @@ syntax case match
 "}}}
 
 " Basics {{{
-syntax match mipsComment /#.*/
-syntax match mipsNumber /\<[-]\?\d\+\>/ " Decimal numbers
-syntax match mipsNumber /\<-\?0\(x\|X\)[0-9a-fA-F]\+\>/ " Hex numbers
-syntax region mipsString start=/"/ skip=/\\"/ end=/"/
-syntax match mipsLabelColon /:/ contained
-syntax match mipsLabel /\w\+:/ contains=mipsLabelColon
+syntax match niosComment /#.*/
+syntax match niosNumber /\<[-]\?\d\+\>/ " Decimal numbers
+syntax match niosNumber /\<-\?0\(x\|X\)[0-9a-fA-F]\+\>/ " Hex numbers
+syntax region niosString start=/"/ skip=/\\"/ end=/"/
+syntax match niosLabelColon /:/ contained
+syntax match niosLabel /\w\+:/ contains=niosLabelColon
 "}}}
 
 " Registers {{{
 " O32 Calling Convention {{{
-syntax match mipsRegister "\$zero"
-syntax match mipsRegister "\$at"
-syntax match mipsRegister "\$v0"
-syntax match mipsRegister "\$v1"
-syntax match mipsRegister "\$a0"
-syntax match mipsRegister "\$a1"
-syntax match mipsRegister "\$a2"
-syntax match mipsRegister "\$a3"
-syntax match mipsRegister "\$t0"
-syntax match mipsRegister "\$t1"
-syntax match mipsRegister "\$t2"
-syntax match mipsRegister "\$t3"
-syntax match mipsRegister "\$t4"
-syntax match mipsRegister "\$t5"
-syntax match mipsRegister "\$t6"
-syntax match mipsRegister "\$t7"
-syntax match mipsRegister "\$s0"
-syntax match mipsRegister "\$s1"
-syntax match mipsRegister "\$s2"
-syntax match mipsRegister "\$s3"
-syntax match mipsRegister "\$s4"
-syntax match mipsRegister "\$s5"
-syntax match mipsRegister "\$s6"
-syntax match mipsRegister "\$s7"
-syntax match mipsRegister "\$t8"
-syntax match mipsRegister "\$t9"
-syntax match mipsRegister "\$k0"
-syntax match mipsRegister "\$k1"
-syntax match mipsRegister "\$gp"
-syntax match mipsRegister "\$sp"
-syntax match mipsRegister "\$fp"
-syntax match mipsRegister "\$ra"
+syntax match niosRegister "\$zero"
+syntax match niosRegister "\$at"
+syntax match niosRegister "\$v0"
+syntax match niosRegister "\$v1"
+syntax match niosRegister "\$a0"
+syntax match niosRegister "\$a1"
+syntax match niosRegister "\$a2"
+syntax match niosRegister "\$a3"
+syntax match niosRegister "\$t0"
+syntax match niosRegister "\$t1"
+syntax match niosRegister "\$t2"
+syntax match niosRegister "\$t3"
+syntax match niosRegister "\$t4"
+syntax match niosRegister "\$t5"
+syntax match niosRegister "\$t6"
+syntax match niosRegister "\$t7"
+syntax match niosRegister "\$s0"
+syntax match niosRegister "\$s1"
+syntax match niosRegister "\$s2"
+syntax match niosRegister "\$s3"
+syntax match niosRegister "\$s4"
+syntax match niosRegister "\$s5"
+syntax match niosRegister "\$s6"
+syntax match niosRegister "\$s7"
+syntax match niosRegister "\$t8"
+syntax match niosRegister "\$t9"
+syntax match niosRegister "\$k0"
+syntax match niosRegister "\$k1"
+syntax match niosRegister "\$gp"
+syntax match niosRegister "\$sp"
+syntax match niosRegister "\$fp"
+syntax match niosRegister "\$ra"
 "}}}
 
 " N32 and N64 Calling Convention {{{
-syntax match mipsRegister "\$a4"
-syntax match mipsRegister "\$a5"
-syntax match mipsRegister "\$a6"
-syntax match mipsRegister "\$a7"
-syntax match mipsRegister "\$s8"
+syntax match niosRegister "\$a4"
+syntax match niosRegister "\$a5"
+syntax match niosRegister "\$a6"
+syntax match niosRegister "\$a7"
+syntax match niosRegister "\$s8"
 "}}}
 let i = 0
 while i < 32
     " This is for the regular registers
-    execute 'syntax match mipsRegister "\$' . i . '\(\d\+\)\@!"'
+    execute 'syntax match niosRegister "\$' . i . '\(\d\+\)\@!"'
     " And this is for the FP registers
-    execute 'syntax match mipsRegister "\$f' . i . '\(\d\+\)\@!"'
+    execute 'syntax match niosRegister "\$f' . i . '\(\d\+\)\@!"'
     let i = i + 1
 endwhile
 "}}}
 
 " Directives {{{
-syntax match mipsDirective "\.2byte"
-syntax match mipsDirective "\.4byte"
-syntax match mipsDirective "\.8byte"
-syntax match mipsDirective "\.aent"
-syntax match mipsDirective "\.align"
-syntax match mipsDirective "\.aascii"
-syntax match mipsDirective "\.asciiz"
-syntax match mipsDirective "\.byte"
-syntax match mipsDirective "\.comm"
-syntax match mipsDirective "\.cpadd"
-syntax match mipsDirective "\.cpload"
-syntax match mipsDirective "\.cplocal"
-syntax match mipsDirective "\.cprestore"
-syntax match mipsDirective "\.cpreturn"
-syntax match mipsDirective "\.cpsetup"
-syntax match mipsDirective "\.data"
-syntax match mipsDirective "\.double"
-syntax match mipsDirective "\.dword"
-syntax match mipsDirective "\.dynsym"
-syntax match mipsDirective "\.end"
-syntax match mipsDirective "\.endr"
-syntax match mipsDirective "\.ent"
-syntax match mipsDirective "\.extern"
-syntax match mipsDirective "\.file"
-syntax match mipsDirective "\.float"
-syntax match mipsDirective "\.fmask"
-syntax match mipsDirective "\.frame"
-syntax match mipsDirective "\.globl"
-syntax match mipsDirective "\.gpvalue"
-syntax match mipsDirective "\.gpword"
-syntax match mipsDirective "\.half"
-syntax match mipsDirective "\.kdata"
-syntax match mipsDirective "\.ktext"
-syntax match mipsDirective "\.lab"
-syntax match mipsDirective "\.lcomm"
-syntax match mipsDirective "\.loc"
-syntax match mipsDirective "\.mask"
-syntax match mipsDirective "\.nada"
-syntax match mipsDirective "\.nop"
-syntax match mipsDirective "\.option"
-syntax match mipsDirective "\.origin"
-syntax match mipsDirective "\.repeat"
-syntax match mipsDirective "\.rdata"
-syntax match mipsDirective "\.sdata"
-syntax match mipsDirective "\.section"
-syntax match mipsDirective "\.set"
-syntax match mipsDirective "\.size"
-syntax match mipsDirective "\.space"
-syntax match mipsDirective "\.struct"
-syntax match mipsDirective "\.text"
-syntax match mipsDirective "\.type"
-syntax match mipsDirective "\.verstamp"
-syntax match mipsDirective "\.weakext"
-syntax match mipsDirective "\.word"
+syntax match niosDirective "\.2byte"
+syntax match niosDirective "\.4byte"
+syntax match niosDirective "\.8byte"
+syntax match niosDirective "\.aent"
+syntax match niosDirective "\.align"
+syntax match niosDirective "\.aascii"
+syntax match niosDirective "\.asciiz"
+syntax match niosDirective "\.byte"
+syntax match niosDirective "\.comm"
+syntax match niosDirective "\.cpadd"
+syntax match niosDirective "\.cpload"
+syntax match niosDirective "\.cplocal"
+syntax match niosDirective "\.cprestore"
+syntax match niosDirective "\.cpreturn"
+syntax match niosDirective "\.cpsetup"
+syntax match niosDirective "\.data"
+syntax match niosDirective "\.double"
+syntax match niosDirective "\.dword"
+syntax match niosDirective "\.dynsym"
+syntax match niosDirective "\.end"
+syntax match niosDirective "\.endr"
+syntax match niosDirective "\.ent"
+syntax match niosDirective "\.extern"
+syntax match niosDirective "\.file"
+syntax match niosDirective "\.float"
+syntax match niosDirective "\.fmask"
+syntax match niosDirective "\.frame"
+syntax match niosDirective "\.globl"
+syntax match niosDirective "\.gpvalue"
+syntax match niosDirective "\.gpword"
+syntax match niosDirective "\.half"
+syntax match niosDirective "\.kdata"
+syntax match niosDirective "\.ktext"
+syntax match niosDirective "\.lab"
+syntax match niosDirective "\.lcomm"
+syntax match niosDirective "\.loc"
+syntax match niosDirective "\.mask"
+syntax match niosDirective "\.nada"
+syntax match niosDirective "\.nop"
+syntax match niosDirective "\.option"
+syntax match niosDirective "\.origin"
+syntax match niosDirective "\.repeat"
+syntax match niosDirective "\.rdata"
+syntax match niosDirective "\.sdata"
+syntax match niosDirective "\.section"
+syntax match niosDirective "\.set"
+syntax match niosDirective "\.size"
+syntax match niosDirective "\.space"
+syntax match niosDirective "\.struct"
+syntax match niosDirective "\.text"
+syntax match niosDirective "\.type"
+syntax match niosDirective "\.verstamp"
+syntax match niosDirective "\.weakext"
+syntax match niosDirective "\.word"
 "}}}
 
 " Instruction Sets {{{
 " MIPS1 {{{
 " Instructions {{{
-syntax keyword mipsInstruction add addi addiu addu
-syntax keyword mipsInstruction and andi
-syntax keyword mipsInstruction bc0f bc0t bc1f bc1t bc2f bc2t bc3f bc3t
-syntax keyword mipsInstruction beq beqz
-syntax keyword mipsInstruction bgez bgezal bgtz
-syntax keyword mipsInstruction blez bltz bltzal
-syntax keyword mipsInstruction bne bnez
-syntax keyword mipsInstruction break
-syntax keyword mipsInstruction c0 c1 c2 c3
-syntax keyword mipsInstruction cfc0 cfc1 cfc2 cfc3
-syntax keyword mipsInstruction ctc0 ctc1 ctc2 ctc3
-syntax keyword mipsInstruction div divu
-syntax keyword mipsInstruction j jal jalr jalx jr
-syntax keyword mipsInstruction lb lbu lh lhu lui
-syntax keyword mipsInstruction lw lwc0 lwc1 lwc2 lwc3 lwl lwr
-syntax keyword mipsInstruction mfc0 mfc1 mfc2 mfc3 mfhi mflo
-syntax keyword mipsInstruction mtc0 mtc1 mtc2 mtc3 mthi mtlo
-syntax keyword mipsInstruction mult multu
-syntax keyword mipsInstruction neg negu
-syntax keyword mipsInstruction nor not or ori
-syntax keyword mipsInstruction rem remu rfe
-syntax keyword mipsInstruction sb sh
-syntax keyword mipsInstruction sll sllv slt slti sltiu sltu
-syntax keyword mipsInstruction sra srav srl srlv
-syntax keyword mipsInstruction sub subu
-syntax keyword mipsInstruction sw swc0 swc1 swc2 swc3 swl swr
-syntax keyword mipsInstruction syscall
-syntax keyword mipsInstruction tlbp tlbr tlbwi tlbwr
-syntax keyword mipsInstruction xor xori
+syntax keyword niosInstruction add addi addiu addu
+syntax keyword niosInstruction and andi
+syntax keyword niosInstruction bc0f bc0t bc1f bc1t bc2f bc2t bc3f bc3t
+syntax keyword niosInstruction beq beqz
+syntax keyword niosInstruction bgez bgezal bgtz
+syntax keyword niosInstruction blez bltz bltzal
+syntax keyword niosInstruction bne bnez
+syntax keyword niosInstruction break
+syntax keyword niosInstruction c0 c1 c2 c3
+syntax keyword niosInstruction cfc0 cfc1 cfc2 cfc3
+syntax keyword niosInstruction ctc0 ctc1 ctc2 ctc3
+syntax keyword niosInstruction div divu
+syntax keyword niosInstruction j jal jalr jalx jr
+syntax keyword niosInstruction lb lbu lh lhu lui
+syntax keyword niosInstruction lw lwc0 lwc1 lwc2 lwc3 lwl lwr
+syntax keyword niosInstruction mfc0 mfc1 mfc2 mfc3 mfhi mflo
+syntax keyword niosInstruction mtc0 mtc1 mtc2 mtc3 mthi mtlo
+syntax keyword niosInstruction mult multu
+syntax keyword niosInstruction neg negu
+syntax keyword niosInstruction nor not or ori
+syntax keyword niosInstruction rem remu rfe
+syntax keyword niosInstruction sb sh
+syntax keyword niosInstruction sll sllv slt slti sltiu sltu
+syntax keyword niosInstruction sra srav srl srlv
+syntax keyword niosInstruction sub subu
+syntax keyword niosInstruction sw swc0 swc1 swc2 swc3 swl swr
+syntax keyword niosInstruction syscall
+syntax keyword niosInstruction tlbp tlbr tlbwi tlbwr
+syntax keyword niosInstruction xor xori
 
-syntax match mipsInstruction "abs\.d"
-syntax match mipsInstruction "abs\.s"
-syntax match mipsInstruction "add\.d"
-syntax match mipsInstruction "add\.s" 
-syntax match mipsInstruction "c\.eq\.d"
-syntax match mipsInstruction "c\.eq\.s"
-syntax match mipsInstruction "c\.f\.d"
-syntax match mipsInstruction "c\.f\.s"
-syntax match mipsInstruction "c\.le\.d"
-syntax match mipsInstruction "c\.le\.s"
-syntax match mipsInstruction "c\.lt\.d"
-syntax match mipsInstruction "c\.lt\.s"
-syntax match mipsInstruction "c\.nge\.d"
-syntax match mipsInstruction "c\.nge\.s"
-syntax match mipsInstruction "c\.ngl\.d"
-syntax match mipsInstruction "c\.ngle\.d"
-syntax match mipsInstruction "c\.ngle\.s"
-syntax match mipsInstruction "c\.ngl\.s"
-syntax match mipsInstruction "c\.ngt\.d"
-syntax match mipsInstruction "c\.ngt\.s"
-syntax match mipsInstruction "c\.ole\.d"
-syntax match mipsInstruction "c\.ole\.s"
-syntax match mipsInstruction "c\.olt\.d"
-syntax match mipsInstruction "c\.olt\.s"
-syntax match mipsInstruction "c\.seq\.d"
-syntax match mipsInstruction "c\.seq\.s"
-syntax match mipsInstruction "c\.sf\.d"
-syntax match mipsInstruction "c\.sf\.s"
-syntax match mipsInstruction "c\.ueq\.d"
-syntax match mipsInstruction "c\.ueq\.s"
-syntax match mipsInstruction "c\.ule\.d"
-syntax match mipsInstruction "c\.ule\.s"
-syntax match mipsInstruction "c\.ult\.d"
-syntax match mipsInstruction "c\.ult\.s"
-syntax match mipsInstruction "c\.un\.d"
-syntax match mipsInstruction "c\.un\.s"
-syntax match mipsInstruction "cvt\.d\.s"
-syntax match mipsInstruction "cvt\.d\.w"
-syntax match mipsInstruction "cvt\.s\.d"
-syntax match mipsInstruction "cvt\.s\.w"
-syntax match mipsInstruction "cvt\.w\.d"
-syntax match mipsInstruction "cvt\.w\.s"
-syntax match mipsInstruction "div\.d"
-syntax match mipsInstruction "div\.s"
-syntax match mipsInstruction "l\.s"
-syntax match mipsInstruction "mov\.d"
-syntax match mipsInstruction "mov\.s"
-syntax match mipsInstruction "mul\.d"
-syntax match mipsInstruction "mul\.s"
-syntax match mipsInstruction "neg\.d"
-syntax match mipsInstruction "neg\.s"
-syntax match mipsInstruction "s\.s"
-syntax match mipsInstruction "sub\.d"
-syntax match mipsInstruction "sub\.s"
+syntax match niosInstruction "abs\.d"
+syntax match niosInstruction "abs\.s"
+syntax match niosInstruction "add\.d"
+syntax match niosInstruction "add\.s" 
+syntax match niosInstruction "c\.eq\.d"
+syntax match niosInstruction "c\.eq\.s"
+syntax match niosInstruction "c\.f\.d"
+syntax match niosInstruction "c\.f\.s"
+syntax match niosInstruction "c\.le\.d"
+syntax match niosInstruction "c\.le\.s"
+syntax match niosInstruction "c\.lt\.d"
+syntax match niosInstruction "c\.lt\.s"
+syntax match niosInstruction "c\.nge\.d"
+syntax match niosInstruction "c\.nge\.s"
+syntax match niosInstruction "c\.ngl\.d"
+syntax match niosInstruction "c\.ngle\.d"
+syntax match niosInstruction "c\.ngle\.s"
+syntax match niosInstruction "c\.ngl\.s"
+syntax match niosInstruction "c\.ngt\.d"
+syntax match niosInstruction "c\.ngt\.s"
+syntax match niosInstruction "c\.ole\.d"
+syntax match niosInstruction "c\.ole\.s"
+syntax match niosInstruction "c\.olt\.d"
+syntax match niosInstruction "c\.olt\.s"
+syntax match niosInstruction "c\.seq\.d"
+syntax match niosInstruction "c\.seq\.s"
+syntax match niosInstruction "c\.sf\.d"
+syntax match niosInstruction "c\.sf\.s"
+syntax match niosInstruction "c\.ueq\.d"
+syntax match niosInstruction "c\.ueq\.s"
+syntax match niosInstruction "c\.ule\.d"
+syntax match niosInstruction "c\.ule\.s"
+syntax match niosInstruction "c\.ult\.d"
+syntax match niosInstruction "c\.ult\.s"
+syntax match niosInstruction "c\.un\.d"
+syntax match niosInstruction "c\.un\.s"
+syntax match niosInstruction "cvt\.d\.s"
+syntax match niosInstruction "cvt\.d\.w"
+syntax match niosInstruction "cvt\.s\.d"
+syntax match niosInstruction "cvt\.s\.w"
+syntax match niosInstruction "cvt\.w\.d"
+syntax match niosInstruction "cvt\.w\.s"
+syntax match niosInstruction "div\.d"
+syntax match niosInstruction "div\.s"
+syntax match niosInstruction "l\.s"
+syntax match niosInstruction "mov\.d"
+syntax match niosInstruction "mov\.s"
+syntax match niosInstruction "mul\.d"
+syntax match niosInstruction "mul\.s"
+syntax match niosInstruction "neg\.d"
+syntax match niosInstruction "neg\.s"
+syntax match niosInstruction "s\.s"
+syntax match niosInstruction "sub\.d"
+syntax match niosInstruction "sub\.s"
 "}}}
 
 " Alias {{{
-syntax keyword mipsAlias b bal
-syntax keyword mipsAlias ehb
-syntax keyword mipsAlias nop ssnop
+syntax keyword niosAlias b bal
+syntax keyword niosAlias ehb
+syntax keyword niosAlias nop ssnop
 "}}}
 
 " Macros {{{
-syntax keyword mipsMacro abs
-syntax keyword mipsMacro bge bgeu bgt bgtu ble bleu blt Highlights bltu
-syntax keyword mipsMacro cop0 cop1 cop2 cop3
-syntax keyword mipsMacro la lca ld li
-syntax keyword mipsMacro move
-syntax keyword mipsMacro mul mulo mulou
-syntax keyword mipsMacro rol ror
-syntax keyword mipsMacro sd seq sge sgeu sgt sgtu
-syntax keyword mipsMacro sle sleu sne
-syntax keyword mipsMacro ulh ulhu ulw ush usw
+syntax keyword niosMacro abs
+syntax keyword niosMacro bge bgeu bgt bgtu ble bleu blt Highlights bltu
+syntax keyword niosMacro cop0 cop1 cop2 cop3
+syntax keyword niosMacro la lca ld li
+syntax keyword niosMacro move
+syntax keyword niosMacro mul mulo mulou
+syntax keyword niosMacro rol ror
+syntax keyword niosMacro sd seq sge sgeu sgt sgtu
+syntax keyword niosMacro sle sleu sne
+syntax keyword niosMacro ulh ulhu ulw ush usw
 
-syntax match mipsMacro "l\.d"
-syntax match mipsMacro "li\.d"
-syntax match mipsMacro "li\.s"
-syntax match mipsMacro "s\.d"
-syntax match mipsMacro "trunc\.w\.d"
-syntax match mipsMacro "trunc\.w\.s"
+syntax match niosMacro "l\.d"
+syntax match niosMacro "li\.d"
+syntax match niosMacro "li\.s"
+syntax match niosMacro "s\.d"
+syntax match niosMacro "trunc\.w\.d"
+syntax match niosMacro "trunc\.w\.s"
 "}}}
 "}}}
 
 " MIPS2 {{{
 " Instructions {{{
-syntax keyword mipsInstruction bc0fl bc0tl bc1fl bc1tl bc2fl bc2tl bc3fl bc3tl
-syntax keyword mipsInstruction beql beqzl
-syntax keyword mipsInstruction bgezall bgezl bgtzl
-syntax keyword mipsInstruction blezl bltzall bltzl
-syntax keyword mipsInstruction bnel bnezl
-syntax keyword mipsInstruction flush
-syntax keyword mipsInstruction invalidate
-syntax keyword mipsInstruction lcache
-syntax keyword mipsInstruction ldc1 ldc2 ldc3 ll
-syntax keyword mipsInstruction sc scache sdc1 sdc2 sdc3
-syntax keyword mipsInstruction sync
-syntax keyword mipsInstruction teq teqi
-syntax keyword mipsInstruction tge tgei tgeiu tgeu
-syntax keyword mipsInstruction tlt tlti tltiu tltu
-syntax keyword mipsInstruction tne tnei
+syntax keyword niosInstruction bc0fl bc0tl bc1fl bc1tl bc2fl bc2tl bc3fl bc3tl
+syntax keyword niosInstruction beql beqzl
+syntax keyword niosInstruction bgezall bgezl bgtzl
+syntax keyword niosInstruction blezl bltzall bltzl
+syntax keyword niosInstruction bnel bnezl
+syntax keyword niosInstruction flush
+syntax keyword niosInstruction invalidate
+syntax keyword niosInstruction lcache
+syntax keyword niosInstruction ldc1 ldc2 ldc3 ll
+syntax keyword niosInstruction sc scache sdc1 sdc2 sdc3
+syntax keyword niosInstruction sync
+syntax keyword niosInstruction teq teqi
+syntax keyword niosInstruction tge tgei tgeiu tgeu
+syntax keyword niosInstruction tlt tlti tltiu tltu
+syntax keyword niosInstruction tne tnei
 
-syntax match mipsInstruction "ceil\.w\.d"
-syntax match mipsInstruction "ceil\.w\.s"
-syntax match mipsInstruction "floor\.w\.d"
-syntax match mipsInstruction "floor\.w\.s"
-syntax match mipsInstruction "round\.w\.d"
-syntax match mipsInstruction "round\.w\.s"
-syntax match mipsInstruction "sqrt\.d"
-syntax match mipsInstruction "sqrt\.s"
-syntax match mipsInstruction "sync\.l"
-syntax match mipsInstruction "sync\.p"
+syntax match niosInstruction "ceil\.w\.d"
+syntax match niosInstruction "ceil\.w\.s"
+syntax match niosInstruction "floor\.w\.d"
+syntax match niosInstruction "floor\.w\.s"
+syntax match niosInstruction "round\.w\.d"
+syntax match niosInstruction "round\.w\.s"
+syntax match niosInstruction "sqrt\.d"
+syntax match niosInstruction "sqrt\.s"
+syntax match niosInstruction "sync\.l"
+syntax match niosInstruction "sync\.p"
 "}}}
 
 " Macros {{{
-syntax keyword mipsMacro bgel bgeul bgtl bgtul
-syntax keyword mipsMacro blel bleul bltl bltul
+syntax keyword niosMacro bgel bgeul bgtl bgtul
+syntax keyword niosMacro blel bleul bltl bltul
 "}}}
 "}}}
 
 " MIPS3 {{{
-syntax keyword mipsInstruction cache
-syntax keyword mipsInstruction clo clz
-syntax keyword mipsInstruction dabs dadd daddi daddiu daddu
-syntax keyword mipsInstruction dctr dctw
-syntax keyword mipsInstruction ddiv ddivu
-syntax keyword mipsInstruction deret
-syntax keyword mipsInstruction di
-syntax keyword mipsInstruction dla dlca dli
-syntax keyword mipsInstruction dmfc0 dmfc1 dmfc2 dmfc3
-syntax keyword mipsInstruction dmtc0 dmtc1 dmtc2 dmtc3
-syntax keyword mipsInstruction dmul dmulo dmulou dmult dmultu
-syntax keyword mipsInstruction dneg dnegu
-syntax keyword mipsInstruction drem dremu
-syntax keyword mipsInstruction drol dror
-syntax keyword mipsInstruction dsll dsll32 dsllv
-syntax keyword mipsInstruction dsra dsra32 dsrav dsrl dsrl32 dsrlv
-syntax keyword mipsInstruction dsub dsubu
-syntax keyword mipsInstruction ei
-syntax keyword mipsInstruction eret
-syntax keyword mipsInstruction ext
-syntax keyword mipsInstruction ins
-syntax keyword mipsInstruction ldl ldr lld lwu
-syntax keyword mipsInstruction madd maddu
-syntax keyword mipsInstruction mfhc1 mfhc2
-syntax keyword mipsInstruction msub msubu
-syntax keyword mipsInstruction mthc1 mthc2
-syntax keyword mipsInstruction pause
-syntax keyword mipsInstruction rdhwr rdpgpr
-syntax keyword mipsInstruction rorv rotl rotr rotrv
-syntax keyword mipsInstruction scd
-syntax keyword mipsInstruction sdbbp sdl sdr
-syntax keyword mipsInstruction seb
-syntax keyword mipsInstruction seh
-syntax keyword mipsInstruction sync_acquire synci sync_release
-syntax keyword mipsInstruction sync_mb sync_rmb sync_wmb
-syntax keyword mipsInstruction udi0 udi1 udi2 udi3 udi4 udi5 udi6 udi7 udi8 udi9
-syntax keyword mipsInstruction udi10 udi11 udi12 udi13 udi14 udi15
-syntax keyword mipsInstruction uld usd
-syntax keyword mipsInstruction wait
-syntax keyword mipsInstruction wrpgpr
-syntax keyword mipsInstruction wsbh
+syntax keyword niosInstruction cache
+syntax keyword niosInstruction clo clz
+syntax keyword niosInstruction dabs dadd daddi daddiu daddu
+syntax keyword niosInstruction dctr dctw
+syntax keyword niosInstruction ddiv ddivu
+syntax keyword niosInstruction deret
+syntax keyword niosInstruction di
+syntax keyword niosInstruction dla dlca dli
+syntax keyword niosInstruction dmfc0 dmfc1 dmfc2 dmfc3
+syntax keyword niosInstruction dmtc0 dmtc1 dmtc2 dmtc3
+syntax keyword niosInstruction dmul dmulo dmulou dmult dmultu
+syntax keyword niosInstruction dneg dnegu
+syntax keyword niosInstruction drem dremu
+syntax keyword niosInstruction drol dror
+syntax keyword niosInstruction dsll dsll32 dsllv
+syntax keyword niosInstruction dsra dsra32 dsrav dsrl dsrl32 dsrlv
+syntax keyword niosInstruction dsub dsubu
+syntax keyword niosInstruction ei
+syntax keyword niosInstruction eret
+syntax keyword niosInstruction ext
+syntax keyword niosInstruction ins
+syntax keyword niosInstruction ldl ldr lld lwu
+syntax keyword niosInstruction madd maddu
+syntax keyword niosInstruction mfhc1 mfhc2
+syntax keyword niosInstruction msub msubu
+syntax keyword niosInstruction mthc1 mthc2
+syntax keyword niosInstruction pause
+syntax keyword niosInstruction rdhwr rdpgpr
+syntax keyword niosInstruction rorv rotl rotr rotrv
+syntax keyword niosInstruction scd
+syntax keyword niosInstruction sdbbp sdl sdr
+syntax keyword niosInstruction seb
+syntax keyword niosInstruction seh
+syntax keyword niosInstruction sync_acquire synci sync_release
+syntax keyword niosInstruction sync_mb sync_rmb sync_wmb
+syntax keyword niosInstruction udi0 udi1 udi2 udi3 udi4 udi5 udi6 udi7 udi8 udi9
+syntax keyword niosInstruction udi10 udi11 udi12 udi13 udi14 udi15
+syntax keyword niosInstruction uld usd
+syntax keyword niosInstruction wait
+syntax keyword niosInstruction wrpgpr
+syntax keyword niosInstruction wsbh
 
-syntax match mipsInstruction "ceil\.l\.d"
-syntax match mipsInstruction "ceil\.l\.s"
-syntax match mipsInstruction "cvt\.d\.l"
-syntax match mipsInstruction "cvt\.l\.d"
-syntax match mipsInstruction "cvt\.l\.s"
-syntax match mipsInstruction "cvt\.s\.l"
-syntax match mipsInstruction "floor\.l\.d"
-syntax match mipsInstruction "floor\.l\.s"
-syntax match mipsInstruction "jalr\.hb"
-syntax match mipsInstruction "jr\.hb"
-syntax match mipsInstruction "round\.l\.d"
-syntax match mipsInstruction "round\.l\.s"
-syntax match mipsInstruction "trunc\.l\.d"
-syntax match mipsInstruction "trunc\.l\.s"
+syntax match niosInstruction "ceil\.l\.d"
+syntax match niosInstruction "ceil\.l\.s"
+syntax match niosInstruction "cvt\.d\.l"
+syntax match niosInstruction "cvt\.l\.d"
+syntax match niosInstruction "cvt\.l\.s"
+syntax match niosInstruction "cvt\.s\.l"
+syntax match niosInstruction "floor\.l\.d"
+syntax match niosInstruction "floor\.l\.s"
+syntax match niosInstruction "jalr\.hb"
+syntax match niosInstruction "jr\.hb"
+syntax match niosInstruction "round\.l\.d"
+syntax match niosInstruction "round\.l\.s"
+syntax match niosInstruction "trunc\.l\.d"
+syntax match niosInstruction "trunc\.l\.s"
 "}}}
 
 " MIPS4 32 {{{
-syntax keyword mipsInstruction movf movn movt movz
-syntax keyword mipsInstruction pref
+syntax keyword niosInstruction movf movn movt movz
+syntax keyword niosInstruction pref
 
-syntax match mipsInstruction "movf\.d"
-syntax match mipsInstruction "movf\.s"
-syntax match mipsInstruction "movn\.d"
-syntax match mipsInstruction "movn\.s"
-syntax match mipsInstruction "movt\.d"
-syntax match mipsInstruction "movt\.s"
-syntax match mipsInstruction "movz\.d"
-syntax match mipsInstruction "movz\.s"
+syntax match niosInstruction "movf\.d"
+syntax match niosInstruction "movf\.s"
+syntax match niosInstruction "movn\.d"
+syntax match niosInstruction "movn\.s"
+syntax match niosInstruction "movt\.d"
+syntax match niosInstruction "movt\.s"
+syntax match niosInstruction "movz\.d"
+syntax match niosInstruction "movz\.s"
 "}}}
 
 " MIPS4 32R2 {{{
-syntax keyword mipsInstruction ldxc1
-syntax keyword mipsInstruction lwxc1
-syntax keyword mipsInstruction prefx
-syntax keyword mipsInstruction sdxc1
-syntax keyword mipsInstruction swxc1
+syntax keyword niosInstruction ldxc1
+syntax keyword niosInstruction lwxc1
+syntax keyword niosInstruction prefx
+syntax keyword niosInstruction sdxc1
+syntax keyword niosInstruction swxc1
 
-syntax match mipsInstruction "madd\.d"
-syntax match mipsInstruction "madd\.s"
-syntax match mipsInstruction "msub\.d"
-syntax match mipsInstruction "msub\.s"
-syntax match mipsInstruction "nmadd\.d"
-syntax match mipsInstruction "nmadd\.s"
-syntax match mipsInstruction "nmsub\.d"
-syntax match mipsInstruction "nmsub\.s"
-syntax match mipsInstruction "recip\.d"
-syntax match mipsInstruction "recip\.s"
-syntax match mipsInstruction "rsqrt\.d"
-syntax match mipsInstruction "rsqrt\.s"
+syntax match niosInstruction "madd\.d"
+syntax match niosInstruction "madd\.s"
+syntax match niosInstruction "msub\.d"
+syntax match niosInstruction "msub\.s"
+syntax match niosInstruction "nmadd\.d"
+syntax match niosInstruction "nmadd\.s"
+syntax match niosInstruction "nmsub\.d"
+syntax match niosInstruction "nmsub\.s"
+syntax match niosInstruction "recip\.d"
+syntax match niosInstruction "recip\.s"
+syntax match niosInstruction "rsqrt\.d"
+syntax match niosInstruction "rsqrt\.s"
 "}}}
 
 " MIPS5 32R2 {{{
-syntax keyword mipsInstruction luxc1
-syntax keyword mipsInstruction suxc1
+syntax keyword niosInstruction luxc1
+syntax keyword niosInstruction suxc1
 
-syntax match mipsInstruction "abs\.ps"
-syntax match mipsInstruction "add\.ps"
-syntax match mipsInstruction "alnv\.ps"
-syntax match mipsInstruction "c\.eq\.ps"
-syntax match mipsInstruction "c\.f\.ps"
-syntax match mipsInstruction "c\.le\.ps"
-syntax match mipsInstruction "c\.lt\.ps"
-syntax match mipsInstruction "c\.nge\.ps"
-syntax match mipsInstruction "c\.ngl\.ps"
-syntax match mipsInstruction "c\.ngle\.ps"
-syntax match mipsInstruction "c\.ngt\.ps"
-syntax match mipsInstruction "c\.ole\.ps"
-syntax match mipsInstruction "c\.olt\.ps"
-syntax match mipsInstruction "c\.seq\.ps"
-syntax match mipsInstruction "c\.sf\.ps"
-syntax match mipsInstruction "c\.ueq\.ps"
-syntax match mipsInstruction "c\.ule\.ps"
-syntax match mipsInstruction "c\.ult\.ps"
-syntax match mipsInstruction "c\.un\.ps"
-syntax match mipsInstruction "cvt\.ps\.s"
-syntax match mipsInstruction "cvt\.s\.pl"
-syntax match mipsInstruction "cvt\.s\.pu"
-syntax match mipsInstruction "madd\.ps"
-syntax match mipsInstruction "mov\.ps"
-syntax match mipsInstruction "movf\.ps"
-syntax match mipsInstruction "movn\.ps"
-syntax match mipsInstruction "movt\.ps"
-syntax match mipsInstruction "movz\.ps"
-syntax match mipsInstruction "msub\.ps"
-syntax match mipsInstruction "mul\.ps"
-syntax match mipsInstruction "neg\.ps"
-syntax match mipsInstruction "nmadd\.ps"
-syntax match mipsInstruction "nmsub\.ps"
-syntax match mipsInstruction "pll\.ps"
-syntax match mipsInstruction "plu\.ps"
-syntax match mipsInstruction "pul\.ps"
-syntax match mipsInstruction "puu\.ps"
-syntax match mipsInstruction "sub\.ps"
+syntax match niosInstruction "abs\.ps"
+syntax match niosInstruction "add\.ps"
+syntax match niosInstruction "alnv\.ps"
+syntax match niosInstruction "c\.eq\.ps"
+syntax match niosInstruction "c\.f\.ps"
+syntax match niosInstruction "c\.le\.ps"
+syntax match niosInstruction "c\.lt\.ps"
+syntax match niosInstruction "c\.nge\.ps"
+syntax match niosInstruction "c\.ngl\.ps"
+syntax match niosInstruction "c\.ngle\.ps"
+syntax match niosInstruction "c\.ngt\.ps"
+syntax match niosInstruction "c\.ole\.ps"
+syntax match niosInstruction "c\.olt\.ps"
+syntax match niosInstruction "c\.seq\.ps"
+syntax match niosInstruction "c\.sf\.ps"
+syntax match niosInstruction "c\.ueq\.ps"
+syntax match niosInstruction "c\.ule\.ps"
+syntax match niosInstruction "c\.ult\.ps"
+syntax match niosInstruction "c\.un\.ps"
+syntax match niosInstruction "cvt\.ps\.s"
+syntax match niosInstruction "cvt\.s\.pl"
+syntax match niosInstruction "cvt\.s\.pu"
+syntax match niosInstruction "madd\.ps"
+syntax match niosInstruction "mov\.ps"
+syntax match niosInstruction "movf\.ps"
+syntax match niosInstruction "movn\.ps"
+syntax match niosInstruction "movt\.ps"
+syntax match niosInstruction "movz\.ps"
+syntax match niosInstruction "msub\.ps"
+syntax match niosInstruction "mul\.ps"
+syntax match niosInstruction "neg\.ps"
+syntax match niosInstruction "nmadd\.ps"
+syntax match niosInstruction "nmsub\.ps"
+syntax match niosInstruction "pll\.ps"
+syntax match niosInstruction "plu\.ps"
+syntax match niosInstruction "pul\.ps"
+syntax match niosInstruction "puu\.ps"
+syntax match niosInstruction "sub\.ps"
 "}}}
 
 " MIPS64 {{{
-syntax keyword mipsInstruction dclo dclz
+syntax keyword niosInstruction dclo dclz
 "}}}
 
 " MIPS64R2 {{{
 " Instructions {{{
-syntax keyword mipsInstruction dext dextm dextu
-syntax keyword mipsInstruction dins dinsm dinsu
-syntax keyword mipsInstruction dror32 drorv drotr32 drotrv
-syntax keyword mipsInstruction dsbh dshd
+syntax keyword niosInstruction dext dextm dextu
+syntax keyword niosInstruction dins dinsm dinsu
+syntax keyword niosInstruction dror32 drorv drotr32 drotrv
+syntax keyword niosInstruction dsbh dshd
 "}}}
 
 " Macros {{{
-syntax keyword mipsMacro drotl drotr
+syntax keyword niosMacro drotl drotr
 "}}}
 "}}}
 "}}}
@@ -449,32 +449,32 @@ syntax keyword mipsMacro drotl drotr
 " of the following instructions, directives, etc.
 
 " Pseudo Instructions {{{
-syntax keyword mipsPseudoInstruction subi subiu
-syntax keyword mipsPseudoInstruction blti
-syntax keyword mipsPseudoInstruction clear
+syntax keyword niosPseudoInstruction subi subiu
+syntax keyword niosPseudoInstruction blti
+syntax keyword niosPseudoInstruction clear
 "}}}
 
 " Pseudo Directives {{{
-syntax match mipsPseudoDirective "\.macro"
-syntax match mipsPseudoDirective "\.end_macro"
-syntax match mipsPseudoDirective "\.include"
-syntax match mipsPseudoDirective "\.eqv"
+syntax match niosPseudoDirective "\.macro"
+syntax match niosPseudoDirective "\.end_macro"
+syntax match niosPseudoDirective "\.include"
+syntax match niosPseudoDirective "\.eqv"
 "}}}
 "}}}
 
 " Highlights Linking {{{
-hi def link mipsComment             Comment
-hi def link mipsNumber              Number
-hi def link mipsString              String
-hi def link mipsLabel               Label
-hi def link mipsRegister            Identifier
-hi def link mipsDirective           Type
-hi def link mipsInstruction         Statement
-hi def link mipsAlias               mipsInstruction
-hi def link mipsMacro               mipsInstruction
-hi def link mipsPseudoInstruction   PreProc
-hi def link mipsPseudoDirective     PreProc
+hi def link niosComment             Comment
+hi def link niosNumber              Number
+hi def link niosString              String
+hi def link niosLabel               Label
+hi def link niosRegister            Identifier
+hi def link niosDirective           Type
+hi def link niosInstruction         Statement
+hi def link niosAlias               niosInstruction
+hi def link niosMacro               niosInstruction
+hi def link niosPseudoInstruction   PreProc
+hi def link niosPseudoDirective     PreProc
 "}}}
 
-let b:current_syntax = "mips"
+let b:current_syntax = "nios"
 " vim:ft=vim:fdm=marker:ff=unix:foldopen=all:foldclose=all:colorcolumn=80
