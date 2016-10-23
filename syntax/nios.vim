@@ -21,6 +21,7 @@ syntax case match
 syntax match niosComment /#.*/
 syntax match niosNumber /\<[-]\?\d\+\>/ " Decimal numbers
 syntax match niosNumber /\<-\?0\(x\|X\)[0-9a-fA-F]\+\>/ " Hex numbers
+syntax match niosNumber /\<-\?0\(b\)[0-1]\+\>/ " Binary numbers
 syntax region niosString start=/"/ skip=/\\"/ end=/"/
 syntax match niosLabelColon /:/ contained
 syntax match niosLabel /\w\+:/ contains=niosLabelColon
