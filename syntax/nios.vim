@@ -208,7 +208,7 @@ syntax match niosPseudoDirective "\.include"
 hi def link niosComment             Comment
 hi def link niosNumber              Number
 hi def link niosString              String
-hi def link niosLabel               Label
+hi def link niosLabel               Special
 hi def link niosRegister            Identifier
 hi def link niosDirective           Type
 hi def link niosInstruction         Statement
