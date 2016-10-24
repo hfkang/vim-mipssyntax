@@ -4,6 +4,9 @@ NIOSII Syntax file.
 
 Forked from https://github.com/Harenome/vim-mipssyntax
 
+![Screenshot](img/screenshot.png)
+
+
 Installation
 ------------
 ### Regular installation
