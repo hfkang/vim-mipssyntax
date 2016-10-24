@@ -181,14 +181,14 @@ syntax keyword niosInstruction beq bne br
 syntax keyword niosInstruction bge bgeu bgt bgtu ble bleu blt bltu 
 syntax keyword niosInstruction ldb ldbio ldbu ldbuio ldh ldhio ldhu ldhuio ldwio ldw 
 syntax keyword niosInstruction stb stbio sth sthio stw stwio 
-syntax keyword niosInsturction mov movhi movi movuii
+syntax keyword niosInstruction mov movhi movi movui
 
 syntax keyword niosInstruction cmpeq cmpeqi cmpge cmpgei cmpgeu cmpgeui cmpgt
 syntax keyword niosInstruction cmpgti cmpgtu cmpgtui cmple cmplei cmpleu cmpleui
 syntax keyword niosInstruction cmplt cmplti cmpltu cmpltui cmpne cmpnei
 
 syntax keyword niosInstruction jmp flushi trap inti flushp wrprs flushda
-syntax keyword niosInstruction bret call callr eret rdctl wrctl break 
+syntax keyword niosInstruction bret call callr eret rdctl wrctl break ret
 "}}}
 
 " Pseudo things {{{
