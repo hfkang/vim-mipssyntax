@@ -17,8 +17,10 @@ setlocal iskeyword+=-
 syntax case match
 "}}}
 
-" Basics {{{
+" Basics {{
+" TODO: Fix Style comments to be more responsive
 syntax match niosComment /#.*/
+syntax match niosComment "/\*\_.*\*/"
 syntax match niosNumber /\<[-]\?\d\+\>/ " Decimal numbers
 syntax match niosNumber /\<-\?0\(x\|X\)[0-9a-fA-F]\+\>/ " Hex numbers
 syntax match niosNumber /\<-\?0\(b\)[0-1]\+\>/ " Binary numbers
